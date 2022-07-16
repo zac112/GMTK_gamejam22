@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float turnSpeed = 1f;
     public float walkSpeed = 0.1f;
     public bool walking = true;
+    private bool stabilizing;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,33 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    IEnumerator Stabilize()
+    {
+        if (stabilizing) yield break;
+        stabilizing = true;
+        Vector3 oldUp = transform.up;
+        Vector3 oldForward = transform.forward;
+        Vector3 upTarget = new Vector3(transform.up.x, 1, transform.up.z);
+
+        Vector3 lookatTarget = transform.position + transform.forward;
+
+        Quaternion from = transform.rotation;
+        Quaternion to = Quaternion.Euler(0, transform.rotation.y, 0);
+        float t = 0;
+        float targetFrames = 1f;
+        while (t < targetFrames) {
+            //transform.up = Vector3.Lerp(oldUp, Vector3.up, t / targetFrames);
+            //transform.forward = Vector3.Lerp(oldForward,transform.forward, t/ targetFrames);
+            //transform.rotation = Quaternion.Lerp(from, to, t / targetFrames);
+            //transform.LookAt(Vector3.Lerp(transform.forward,lookatTarget,t / targetFrames));
+            //transform.rotation.SetLookRotation(lookatTarget, Vector3.up);
+            t += 1;
+            yield return null;
+        }
+        transform.up = upTarget;
+        transform.forward = oldForward;
+        stabilizing = false;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -24,6 +52,8 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.up* wingPower);
             rb.AddForce(transform.forward * moveSpeed);
+
+            StartCoroutine(Stabilize());
         }
         if (Input.GetKey(KeyCode.W))
         {
@@ -36,14 +66,14 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(-transform.up, turnSpeed);
-            //transform.Rotate(-Vector3.up, turnSpeed);
+            //transform.Rotate(-transform.up, turnSpeed);
+            transform.Rotate(-Vector3.up, turnSpeed);
             //rb.AddRelativeTorque(-transform.up * turnSpeed);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(transform.up, turnSpeed);
-            //transform.Rotate(Vector3.up, turnSpeed);
+            //transform.Rotate(transform.up, turnSpeed);
+            transform.Rotate(Vector3.up, turnSpeed);
             //rb.AddRelativeTorque(transform.up*turnSpeed);
             //rb.AddTorque(-transform.right * turnSpeed);
         }
@@ -77,7 +107,11 @@ public class PlayerController : MonoBehaviour
     }
     private void StartWalking()
     {
-        transform.up = Vector3.up;
+        /*
+        Vector3 forward = transform.forward;
+        transform.up = new Vector3(transform.up.x,1, transform.up.z);
+        transform.forward = forward;*/
+        StartCoroutine(Stabilize());
         walking = true;
     }
     private void StopWalking()
@@ -87,6 +121,7 @@ public class PlayerController : MonoBehaviour
 
     private void CatchBug(GameObject bug)
     {
+        gameObject.GetComponent<Inventory>().AddBug(bug.GetComponent<Bug>());
         print("Caught bug");
     }
 }
