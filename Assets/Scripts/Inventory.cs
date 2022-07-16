@@ -19,12 +19,18 @@ public class Inventory : MonoBehaviour
     public void RemoveBug()
     {
         bugs.RemoveAt(bugs.Count-1);
+        UpdateUI();
+    }
+
+    public bool HasBugs()
+    {
+        return bugs.Count > 0;
     }
 
     private void UpdateUI()
     {
         int i = 0;
-        for (; i<bugs.Count;i++)
+        for (; i< Mathf.Min(icons.Length, bugs.Count);i++)
         {
             icons[i].GetComponent<Image>().sprite = bugs[i].sprite;
         }
