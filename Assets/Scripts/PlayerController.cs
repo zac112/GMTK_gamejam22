@@ -122,6 +122,7 @@ public class PlayerController : MonoBehaviour
     private void CatchBug(GameObject bug)
     {
         gameObject.GetComponent<Inventory>().AddBug(bug.GetComponent<Bug>());
+        bug.SetActive(false);
         print("Caught bug");
     }
 }
