@@ -51,8 +51,8 @@ public class NestGUI : MonoBehaviour
                 babies[selectedChild].GetComponentInChildren<SpriteRenderer>().enabled = false;
 
                 int movement = 0;
-                if (Input.GetKeyDown(KeyCode.LeftArrow)) movement = -1;
-                if (Input.GetKeyDown(KeyCode.RightArrow)) movement = 1;
+                if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) movement = -1;
+                if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) movement = 1;
                 if (Input.GetKeyDown(KeyCode.P)) {
                     GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().AddBug(GameObject.FindObjectOfType<Bug>());
                 }
