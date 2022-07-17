@@ -10,7 +10,13 @@ public class NestGUI : MonoBehaviour
 
     private void Start()
     {
-        babies.RemoveAll((a) => !a.activeSelf);
+        for (int i = babies.Count-1; i > 0; i--)
+        {
+            if (i > GameManager.babiesTotal) {
+                babies[i].SetActive(false);
+                babies.RemoveAt(i);
+            }
+        }
     }
 
     public void Activate()
@@ -51,8 +57,8 @@ public class NestGUI : MonoBehaviour
                 babies[selectedChild].GetComponentInChildren<SpriteRenderer>().enabled = false;
 
                 int movement = 0;
-                if (Input.GetKeyDown(KeyCode.LeftArrow)) movement = -1;
-                if (Input.GetKeyDown(KeyCode.RightArrow)) movement = 1;
+                if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) movement = -1;
+                if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) movement = 1;
                 if (Input.GetKeyDown(KeyCode.P)) {
                     GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().AddBug(GameObject.FindObjectOfType<Bug>());
                 }

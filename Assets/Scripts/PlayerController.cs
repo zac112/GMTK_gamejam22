@@ -64,13 +64,13 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(Vector3.right, turnSpeed);
             //rb.AddTorque(transform.right * turnSpeed);
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             //transform.Rotate(-transform.up, turnSpeed);
             transform.Rotate(-Vector3.up, turnSpeed);
             //rb.AddRelativeTorque(-transform.up * turnSpeed);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             //transform.Rotate(transform.up, turnSpeed);
             transform.Rotate(Vector3.up, turnSpeed);
