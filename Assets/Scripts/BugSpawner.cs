@@ -11,7 +11,7 @@ public class BugSpawner : MonoBehaviour
     public Terrain terrain;
     private GameObject goParent;
 
-    void Start()
+    public void SpawnBugs()
     {
         goParent = new GameObject("Bugs");
         SpawnFlyers();
