@@ -13,7 +13,7 @@ public class Diceroll : MonoBehaviour
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.AddExplosionForce(explosionForce, explosionPlace.transform.position, 10f);
-            rb.AddTorque(Random.onUnitSphere);            
+            rb.AddTorque(Random.onUnitSphere*5);
         }
     }
 

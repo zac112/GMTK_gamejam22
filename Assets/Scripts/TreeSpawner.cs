@@ -15,30 +15,30 @@ public class TreeSpawner : MonoBehaviour
     public List<TreeSpawn> trees;
     public int numTrees;
     public Terrain terrain;
+    public bool spawnTrees = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject p = new GameObject("Forest");
-        TerrainCollider c = terrain.GetComponent<TerrainCollider>();
-        foreach (TreeSpawn ts in trees)
+        if (spawnTrees)
         {
-            for (int i = 0; i < ts.num; i++)
+            GameObject p = new GameObject("Forest");
+            TerrainCollider c = terrain.GetComponent<TerrainCollider>();
+            foreach (TreeSpawn ts in trees)
             {
-                float x = UnityEngine.Random.Range(0, c.bounds.size.x);
-                float y = UnityEngine.Random.Range(0, c.bounds.size.y) - c.bounds.size.y / 2f;
-                float z = UnityEngine.Random.Range(0, c.bounds.size.z);
-                GameObject go = Instantiate<GameObject>(ts.tree);
-                go.transform.localRotation = Quaternion.Euler(-90, UnityEngine.Random.Range(0, 360), 0);
-                go.transform.position = new Vector3(x, 0, z);
-                go.transform.parent = p.transform;
+                for (int i = 0; i < ts.num; i++)
+                {
+                    float x = UnityEngine.Random.Range(0, c.bounds.size.x);
+                    float y = UnityEngine.Random.Range(0, c.bounds.size.y) - c.bounds.size.y / 2f;
+                    float z = UnityEngine.Random.Range(0, c.bounds.size.z);
+                    GameObject go = Instantiate<GameObject>(ts.tree);
+                    go.transform.localRotation = Quaternion.Euler(-90, UnityEngine.Random.Range(0, 360), 0);
+                    go.transform.localScale = Vector3.one * UnityEngine.Random.Range(60, 120);
+                    go.transform.position = new Vector3(x, 0, z);
+                    go.transform.parent = p.transform;   
+                }
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameObject.GetComponent<BugSpawner>().SpawnBugs();
     }
 }

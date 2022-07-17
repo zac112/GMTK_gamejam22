@@ -9,7 +9,10 @@ public class NestApproacher : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(ApproachNest(other.gameObject));
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            StartCoroutine(ApproachNest(other.gameObject.transform.parent.gameObject));
+        }
     }
 
     IEnumerator ApproachNest(GameObject player)

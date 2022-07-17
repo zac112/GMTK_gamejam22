@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CatController : MonoBehaviour
 {
@@ -67,6 +68,14 @@ public class CatController : MonoBehaviour
         {
             yield return new WaitForSeconds(2);
             player = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Respawn"))
+        {
+            SceneManager.LoadScene("LoseScene");
         }
     }
 }

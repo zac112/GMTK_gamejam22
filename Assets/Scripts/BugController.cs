@@ -34,6 +34,11 @@ public class BugController : MonoBehaviour
 
             Vector3 newPos = Vector3.MoveTowards(transform.position, checkpoint.position, speed);
             transform.position = newPos;
+            Quaternion rot = Quaternion.FromToRotation(transform.forward, checkpoint.position - transform.forward);
+            //Quaternion rot = Quaternion.FromToRotation(Vector3.zero, waypoints[i].transform.position);
+            if (Quaternion.Angle(rot, transform.rotation) > 5)
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, 0.5f);
+
             yield return null;
         }
     }

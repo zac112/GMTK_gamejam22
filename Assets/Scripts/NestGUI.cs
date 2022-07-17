@@ -8,7 +8,7 @@ public class NestGUI : MonoBehaviour
     public List<GameObject> babies;
     public bool activated = false;
 
-    private void Start()
+    private void Awake()
     {
         for (int i = babies.Count-1; i > 0; i--)
         {
