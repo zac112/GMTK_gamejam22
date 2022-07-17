@@ -4,26 +4,13 @@ using UnityEngine;
 
 public class VisibilityHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject TreeLod0;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Tree"))
         {
-            foreach (MeshRenderer m in other.gameObject.GetComponentsInChildren<MeshRenderer>())
-            {
-                m.enabled = true;
-            }
+            other.gameObject.GetComponent<TreeLODControl>().ShowGoodDetail();
         }
     }
 
@@ -31,10 +18,7 @@ public class VisibilityHandler : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Tree"))
         {
-            foreach (MeshRenderer m in other.gameObject.GetComponentsInChildren<MeshRenderer>())
-            {
-                m.enabled = false;
-            }
+            other.gameObject.GetComponent<TreeLODControl>().ShowLowDetail();
         }
     }
 }
