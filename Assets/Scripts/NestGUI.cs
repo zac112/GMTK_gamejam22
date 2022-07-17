@@ -10,7 +10,13 @@ public class NestGUI : MonoBehaviour
 
     private void Start()
     {
-        babies.RemoveAll((a) => !a.activeSelf);
+        for (int i = babies.Count-1; i > 0; i--)
+        {
+            if (i > GameManager.babiesTotal) {
+                babies[i].SetActive(false);
+                babies.RemoveAt(i);
+            }
+        }
     }
 
     public void Activate()
