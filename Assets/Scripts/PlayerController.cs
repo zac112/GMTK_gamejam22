@@ -22,22 +22,23 @@ public class PlayerController : MonoBehaviour
     {
         if (stabilizing) yield break;
         stabilizing = true;
-        Vector3 oldUp = transform.up;
+
         Vector3 oldForward = transform.forward;
         Vector3 upTarget = new Vector3(transform.up.x, 1, transform.up.z);
 
-        Vector3 lookatTarget = transform.position + transform.forward;
+        Vector3 tempup = transform.up;
 
         Quaternion from = transform.rotation;
-        Quaternion to = Quaternion.Euler(0, transform.rotation.y, 0);
+        transform.up = upTarget;
+        transform.forward = oldForward;
+        Quaternion to = transform.rotation;
+
+        transform.up = tempup;
+
         float t = 0;
-        float targetFrames = 1f;
+        float targetFrames = 5f;
         while (t < targetFrames) {
-            //transform.up = Vector3.Lerp(oldUp, Vector3.up, t / targetFrames);
-            //transform.forward = Vector3.Lerp(oldForward,transform.forward, t/ targetFrames);
-            //transform.rotation = Quaternion.Lerp(from, to, t / targetFrames);
-            //transform.LookAt(Vector3.Lerp(transform.forward,lookatTarget,t / targetFrames));
-            //transform.rotation.SetLookRotation(lookatTarget, Vector3.up);
+            transform.rotation = Quaternion.Lerp(from, to, t/targetFrames);
             t += 1;
             yield return null;
         }

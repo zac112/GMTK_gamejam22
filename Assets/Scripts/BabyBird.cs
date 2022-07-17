@@ -33,7 +33,7 @@ public class BabyBird : MonoBehaviour
     {
         hunger = 0;
         food += 1;
-        if (food >= 3)
+        if (hungryBaby.GetComponent<MeshRenderer>().enabled && food >= 3)
         {
             hungryBaby.GetComponent<MeshRenderer>().enabled = false;
             filledBaby.GetComponent<MeshRenderer>().enabled = true;
